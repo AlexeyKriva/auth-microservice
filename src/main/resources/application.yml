@@ -1,0 +1,19 @@
+spring:
+  application:
+    name:
+      auth-microservice
+
+  mail:
+    username: test.modsen.software.newsletter@gmail.com
+    password: "uikz ilhl jnft fpoh"
+    host: smtp.gmail.com
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    port: 587
+
+server:
+  port: 8085
