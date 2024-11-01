@@ -1,4 +1,4 @@
-package com.software.modsen.authmicroservice.entities
+package com.software.modsen.authmicroservice.entities.mail
 
 import java.time.LocalDateTime
 
