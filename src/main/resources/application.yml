@@ -34,9 +34,6 @@ keycloak:
   admin-username: ${KC_BOOTSTRAP_ADMIN_USERNAME:admin}
   admin-password: ${KC_BOOTSTRAP_ADMIN_PASSWORD:admin}
   grant-type: ${KEYCLOAK_GRANT_TYPE:password}
-  passenger-role-id: 05b121ce-de2c-4380-9ecc-5355114b3c6e
-  driver-role-id: 78b0db73-9040-4d28-9f08-6f0f5826f0ec
-  admin-role-id: 85c6c9d1-9833-4841-8894-b8bd710c7a6f
 
 server:
   port: 8085
