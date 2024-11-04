@@ -1,11 +1,10 @@
 package com.software.modsen.authmicroservice.services
 
-import com.software.modsen.authmicroservice.entities.VerificationCode
+import com.software.modsen.authmicroservice.entities.mail.VerificationCode
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.mail.SimpleMailMessage
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.stereotype.Service
-import java.time.Duration
 
 @Service
 class MailSenderService(private val verificationCodeService: VerificationCodeService,
@@ -15,10 +14,10 @@ class MailSenderService(private val verificationCodeService: VerificationCodeSer
 
     val subject: String = "Account verification";
 
-    public fun sendVerificationCode(to: String): VerificationCode {
-        val verificationCode: VerificationCode = verificationCodeService.createVerificationCode()
+    fun sendVerificationCode(to: String): VerificationCode {
+        val verificationCode: VerificationCode = verificationCodeService.createRandomVerificationCode()
 
-        var mailVerificationMessage: SimpleMailMessage = SimpleMailMessage()
+        val mailVerificationMessage = SimpleMailMessage()
 
         mailVerificationMessage.setTo(to)
         mailVerificationMessage.subject = subject
@@ -30,7 +29,7 @@ class MailSenderService(private val verificationCodeService: VerificationCodeSer
         return verificationCode
     }
 
-    public fun isCodeVerificationPassed(verificationCode: VerificationCode, userVerificationCode: String): Boolean {
-        return verificationCodeService.isVerificationCodeValid(verificationCode, userVerificationCode)
+    fun isCodeVerificationPassed(userVerificationCode: String): Boolean {
+        return verificationCodeService.isVerificationCodeValid(userVerificationCode)
     }
 }
