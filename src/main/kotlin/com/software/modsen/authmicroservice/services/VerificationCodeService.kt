@@ -15,6 +15,14 @@ class VerificationCodeService {
 
     private var verificationCode: VerificationCode = createRandomVerificationCode()
 
+    fun setVerificationCode(code: VerificationCode) {
+        verificationCode = code
+    }
+
+    fun getVerificationCode(): VerificationCode {
+        return verificationCode
+    }
+
     fun createRandomVerificationCode(): VerificationCode {
         val length = 6;
 

@@ -7,7 +7,6 @@ import com.software.modsen.authmicroservice.entities.keycloak.KeycloakToken
 import com.software.modsen.authmicroservice.entities.keycloak.UserAuthDetails
 import com.software.modsen.authmicroservice.entities.mail.EmailConfirmation
 import com.software.modsen.authmicroservice.entities.mail.EmailForVerification
-import com.software.modsen.authmicroservice.entities.mail.VerificationCode
 import com.software.modsen.authmicroservice.services.AuthService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -24,21 +23,21 @@ class AuthController(private val authService: AuthService) {
     fun registrationPassenger(
         @Valid @RequestBody passengerDetails: PassengerDetails
     ): ResponseEntity<KeycloakToken> {
-        return ResponseEntity(authService.savePassengerInKeycloak(passengerDetails), HttpStatus.CREATED)
+        return ResponseEntity(authService.savePassenger(passengerDetails), HttpStatus.CREATED)
     }
 
     @PostMapping("/drivers/register")
     fun registrationDriver(
         @Valid @RequestBody driverDetails: DriverDetails
     ): ResponseEntity<KeycloakToken> {
-        return ResponseEntity(authService.saveDriverInKeycloak(driverDetails), HttpStatus.CREATED)
+        return ResponseEntity(authService.saveDriver(driverDetails), HttpStatus.CREATED)
     }
 
     @PostMapping("/admins/register")
     fun registrationAdmin(
         @Valid @RequestBody adminDetails: AdminDetails
     ): ResponseEntity<KeycloakToken> {
-        return ResponseEntity(authService.saveAdminInKeycloak(adminDetails), HttpStatus.CREATED)
+        return ResponseEntity(authService.saveAdmin(adminDetails), HttpStatus.CREATED)
     }
 
     @PostMapping("/users")
