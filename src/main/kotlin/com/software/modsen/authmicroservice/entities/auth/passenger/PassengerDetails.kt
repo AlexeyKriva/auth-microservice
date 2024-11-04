@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
 
 data class PassengerDetails(
-    @JsonProperty("username")
+    @JsonProperty("name")
     @NotBlank(message = "Name cannot be blank.")
     @Size(
         min = 4, max = 55, message = "The number of characters in the name" +

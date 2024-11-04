@@ -1,4 +1,4 @@
-package com.software.modsen.authmicroservice.entities.auth.driver
+package com.software.modsen.authmicroservice.entities.auth.admin
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.Email
@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
 
-data class DriverDetails (
+data class AdminDetails (
     @JsonProperty("name")
     @NotBlank(message = "Name cannot be blank.")
     @Size(
@@ -34,11 +34,5 @@ data class DriverDetails (
                 " must be at least 8 and not exceed 55."
     )
     @NotBlank(message = "Password cannot be blank")
-    val password: String,
-
-    @JsonProperty("sex")
-    val sex: Sex,
-
-    @JsonProperty("carId")
-    val carId: Long
+    val password: String
 )
