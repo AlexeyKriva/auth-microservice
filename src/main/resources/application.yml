@@ -26,6 +26,11 @@ spring:
           passenger-microservice:
             url: ${PASSENGER_SERVER_URL:http://localhost:8081/api/passengers}
 
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka}
+
 keycloak:
   realm: ${KEYCLOAK_REALM:cab-agg}
   client-id-admin: ${KEYCLOAK_CLIENT_ID_ADMIN:admin-cli}
