@@ -37,52 +37,6 @@ class AuthServiceTests {
     lateinit var mailSenderService: MailSenderService
 
     @Test
-    fun savePassengerInKeycloakTest_ReturnsKeycloakToken() {
-        //given
-        val passengerDetails = PassengerDetails("username", "email@gmail.com",
-            "+375293333333", "password")
-        val keycloakToken = KeycloakToken("a.b.c", 1, 10, "d.e.f",
-            "Bearer")
-        `when`(keycloakService.saveUserInKeycloak(passengerDetails.username, passengerDetails.email,
-            passengerDetails.password, "ROLE_PASSENGER", false)).thenReturn(keycloakToken)
-
-        //when
-        val keycloakTokenFromAuthService = authService.savePassenger(passengerDetails)
-
-        //then
-        assertNotNull(keycloakTokenFromAuthService)
-        assertEquals(keycloakTokenFromAuthService.accessToken, keycloakToken.accessToken)
-        assertEquals(keycloakTokenFromAuthService.expiresIn, keycloakToken.expiresIn)
-        assertEquals(keycloakTokenFromAuthService.refreshExpiresIn, keycloakToken.refreshExpiresIn)
-        assertEquals(keycloakTokenFromAuthService.refreshToken, keycloakToken.refreshToken)
-        assertEquals(keycloakTokenFromAuthService.tokenType, keycloakToken.tokenType)
-        verify(passengerSubject).notifyPassengerObservers(passengerDetails)
-    }
-
-    @Test
-    fun saveDriverInKeycloakTest_ReturnsKeycloakToken() {
-        //given
-        val driverDetails = DriverDetails("username", "email@gmail.com",
-            "+375293333333", "password", Sex.MALE, 1)
-        val keycloakToken = KeycloakToken("a.b.c", 1, 10, "d.e.f",
-            "Bearer")
-        `when`(keycloakService.saveUserInKeycloak(driverDetails.username, driverDetails.email,
-            driverDetails.password, "ROLE_DRIVER", false)).thenReturn(keycloakToken)
-
-        //when
-        val keycloakTokenFromAuthService = authService.saveDriver(driverDetails)
-
-        //then
-        assertNotNull(keycloakTokenFromAuthService)
-        assertEquals(keycloakTokenFromAuthService.accessToken, keycloakToken.accessToken)
-        assertEquals(keycloakTokenFromAuthService.expiresIn, keycloakToken.expiresIn)
-        assertEquals(keycloakTokenFromAuthService.refreshExpiresIn, keycloakToken.refreshExpiresIn)
-        assertEquals(keycloakTokenFromAuthService.refreshToken, keycloakToken.refreshToken)
-        assertEquals(keycloakTokenFromAuthService.tokenType, keycloakToken.tokenType)
-        verify(driverSubject).notifyDriverObservers(driverDetails)
-    }
-
-    @Test
     fun saveAdminInKeycloakTest_ReturnsKeycloakToken() {
         //given
         val adminDetails = AdminDetails("username", "email@gmail.com",

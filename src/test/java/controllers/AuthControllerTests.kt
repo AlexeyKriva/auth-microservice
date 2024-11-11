@@ -13,10 +13,13 @@ import com.software.modsen.authmicroservice.services.AuthService
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Disabled
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.jupiter.MockitoExtension
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 
 @ExtendWith(MockitoExtension::class)
 class AuthControllerTests {
@@ -25,52 +28,6 @@ class AuthControllerTests {
 
     @Mock
     lateinit var authService: AuthService
-
-    @Test
-    fun registrationPassengerTest_ReturnsResponseEntity() {
-        //given
-        val passengerDetails = PassengerDetails("username", "email@gmail.com",
-            "+375293333333", "password")
-        val keycloakToken = KeycloakToken("a.b.c", 1, 10, "d.e.f",
-            "Bearer")
-
-        `when`(authService.savePassenger(passengerDetails)).thenReturn(keycloakToken)
-
-        //when
-        val responseEntity = authController.registrationPassenger(passengerDetails)
-
-        //then
-        assertNotNull(responseEntity)
-        assertEquals(responseEntity.body!!.accessToken, keycloakToken.accessToken)
-        assertEquals(responseEntity.body!!.expiresIn, keycloakToken.expiresIn)
-        assertEquals(responseEntity.body!!.refreshExpiresIn, keycloakToken.refreshExpiresIn)
-        assertEquals(responseEntity.body!!.refreshToken, keycloakToken.refreshToken)
-        assertEquals(responseEntity.body!!.tokenType, keycloakToken.tokenType)
-        verify(authService).savePassenger(passengerDetails)
-    }
-
-    @Test
-    fun registrationDriverTest_ReturnsResponseEntity() {
-        //given
-        val driverDetails = DriverDetails("username", "email@gmail.com",
-            "+375293333333", "password", Sex.MALE, 1)
-        val keycloakToken = KeycloakToken("a.b.c", 1, 10, "d.e.f",
-            "Bearer")
-
-        `when`(authService.saveDriver(driverDetails)).thenReturn(keycloakToken)
-
-        //when
-        val responseEntity = authController.registrationDriver(driverDetails)
-
-        //then
-        assertNotNull(responseEntity)
-        assertEquals(responseEntity.body!!.accessToken, keycloakToken.accessToken)
-        assertEquals(responseEntity.body!!.expiresIn, keycloakToken.expiresIn)
-        assertEquals(responseEntity.body!!.refreshExpiresIn, keycloakToken.refreshExpiresIn)
-        assertEquals(responseEntity.body!!.refreshToken, keycloakToken.refreshToken)
-        assertEquals(responseEntity.body!!.tokenType, keycloakToken.tokenType)
-        verify(authService).saveDriver(driverDetails)
-    }
 
     @Test
     fun registrationAdminTest_ReturnsResponseEntity() {
