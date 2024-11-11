@@ -20,9 +20,12 @@ class MailSenderService(private val verificationCodeService: VerificationCodeSer
         val mailVerificationMessage = SimpleMailMessage()
 
         mailVerificationMessage.setTo(to)
-        mailVerificationMessage.subject = subject
-        mailVerificationMessage.text = verificationCode.code
-        mailVerificationMessage.from = from
+
+        mailVerificationMessage.apply {
+            this.subject = subject
+            this.text = verificationCode.code
+            this.from = from
+        }
 
         mailSender.send(mailVerificationMessage)
 

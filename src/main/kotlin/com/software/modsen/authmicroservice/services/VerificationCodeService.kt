@@ -31,7 +31,7 @@ class VerificationCodeService {
 
         verificationCode = VerificationCode(code, LocalDateTime.now())
 
-        return verificationCode as VerificationCode
+        return verificationCode
     }
 
     fun isVerificationCodeValid(userVerificationCode: String): Boolean {
