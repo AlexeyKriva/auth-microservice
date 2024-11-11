@@ -1,8 +1,5 @@
 package com.software.modsen.authmicroservice.exceptions
 
-import com.software.modsen.authmicroservice.exceptions.ExceptionMessage.Companion.INVALID_JSON_FORMAT
-import com.software.modsen.authmicroservice.exceptions.ExceptionMessage.Companion.METHOD_NOT_SUPPORTED_MESSAGE
-import com.software.modsen.authmicroservice.exceptions.ExceptionMessage.Companion.FAILED_REQUEST_TO_REMOTE_SERVER_MESSAGE
 import feign.FeignException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -25,19 +22,21 @@ class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(EmailVerificationCodeHasExpiredException::class)
-    fun emailVerificationCodeHasExpiredHandler(exception: EmailVerificationCodeHasExpiredException): ResponseEntity<String> {
+    fun emailVerificationCodeHasExpiredHandler(exception: EmailVerificationCodeHasExpiredException):
+            ResponseEntity<String> {
         return ResponseEntity(exception.message, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(WrongEmailVerificationCodeException::class)
-    fun wrongEmailVerificationCodeExceptionHandler(exception: WrongEmailVerificationCodeException): ResponseEntity<String> {
+    fun wrongEmailVerificationCodeExceptionHandler(exception: WrongEmailVerificationCodeException):
+            ResponseEntity<String> {
         return ResponseEntity(exception.message, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException::class)
     fun httpRequestMethodNotSupportedExceptionHandler(exception: HttpRequestMethodNotSupportedException):
             ResponseEntity<String> {
-        return ResponseEntity<String>(exception.method + METHOD_NOT_SUPPORTED_MESSAGE,
+        return ResponseEntity<String>(exception.method + ExceptionMessage().METHOD_NOT_SUPPORTED_MESSAGE,
             HttpStatus.METHOD_NOT_ALLOWED)
     }
 
@@ -47,14 +46,16 @@ class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException::class)
-    fun httpMessageNotReadableExceptionMessageHandler(exception: HttpMessageNotReadableException?): ResponseEntity<String> {
-        return ResponseEntity<String>(INVALID_JSON_FORMAT, HttpStatus.BAD_REQUEST)
+    fun httpMessageNotReadableExceptionMessageHandler(exception: HttpMessageNotReadableException?):
+            ResponseEntity<String> {
+        return ResponseEntity<String>(ExceptionMessage().INVALID_JSON_FORMAT, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(FeignException::class)
     fun feignExceptionHandler(exception: FeignException): ResponseEntity<String> {
         return ResponseEntity<String>(
-            "$FAILED_REQUEST_TO_REMOTE_SERVER_MESSAGE\n${exception.message}\n${exception.contentUTF8()}",
+            "${ExceptionMessage().FAILED_REQUEST_TO_REMOTE_SERVER_MESSAGE}\n" +
+                    "${exception.message}\n${exception.contentUTF8()}",
             HttpStatus.INTERNAL_SERVER_ERROR
         )
     }

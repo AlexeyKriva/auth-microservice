@@ -2,9 +2,8 @@ package com.software.modsen.authmicroservice.services
 
 import com.software.modsen.authmicroservice.clients.KeycloakClient
 import com.software.modsen.authmicroservice.entities.keycloak.*
+import com.software.modsen.authmicroservice.exceptions.ExceptionMessage
 import com.software.modsen.authmicroservice.exceptions.UserIsAlreadyRegisteredException
-import com.software.modsen.authmicroservice.exceptions.ExceptionMessage.Companion.USER_IS_ALREADY_REGISTERED_MESSAGE
-import com.software.modsen.authmicroservice.exceptions.ExceptionMessage.Companion.ROLE_NOT_FOUND_MESSAGE
 import com.software.modsen.authmicroservice.exceptions.RoleNotFoundException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.scheduling.annotation.EnableScheduling
@@ -65,7 +64,7 @@ class KeycloakService(private val keycloakClient: KeycloakClient) {
 
             return getAccessAndRefreshTokens(username, password);
         } else {
-            throw UserIsAlreadyRegisteredException(USER_IS_ALREADY_REGISTERED_MESSAGE)
+            throw UserIsAlreadyRegisteredException(ExceptionMessage().USER_IS_ALREADY_REGISTERED_MESSAGE)
         }
     }
 
@@ -76,7 +75,7 @@ class KeycloakService(private val keycloakClient: KeycloakClient) {
             }
         }
 
-        throw RoleNotFoundException(targetRoleName + ROLE_NOT_FOUND_MESSAGE);
+        throw RoleNotFoundException(targetRoleName + ExceptionMessage().ROLE_NOT_FOUND_MESSAGE);
     }
 
     fun getAccessAndRefreshTokens(username: String, password: String): KeycloakToken {

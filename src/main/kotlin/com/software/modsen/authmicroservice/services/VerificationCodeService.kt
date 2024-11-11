@@ -2,9 +2,8 @@ package com.software.modsen.authmicroservice.services
 
 import com.software.modsen.authmicroservice.entities.mail.VerificationCode
 import com.software.modsen.authmicroservice.exceptions.EmailVerificationCodeHasExpiredException
+import com.software.modsen.authmicroservice.exceptions.ExceptionMessage
 import com.software.modsen.authmicroservice.exceptions.WrongEmailVerificationCodeException
-import com.software.modsen.authmicroservice.exceptions.ExceptionMessage.Companion.VERIFICATION_CODE_HAS_EXPIRED_MESSAGE
-import com.software.modsen.authmicroservice.exceptions.ExceptionMessage.Companion.WRONG_VERIFICATION_CODE_MESSAGE
 import org.springframework.stereotype.Service
 import java.time.Duration
 import java.time.LocalDateTime
@@ -41,10 +40,10 @@ class VerificationCodeService {
                 return true
             }
 
-            throw WrongEmailVerificationCodeException(WRONG_VERIFICATION_CODE_MESSAGE)
+            throw WrongEmailVerificationCodeException(ExceptionMessage().WRONG_VERIFICATION_CODE_MESSAGE)
         }
 
-        throw EmailVerificationCodeHasExpiredException(VERIFICATION_CODE_HAS_EXPIRED_MESSAGE)
+        throw EmailVerificationCodeHasExpiredException(ExceptionMessage().VERIFICATION_CODE_HAS_EXPIRED_MESSAGE)
     }
 
     fun isVerificationCodeNotExpired(verificationCode: VerificationCode): Boolean {
