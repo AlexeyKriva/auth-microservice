@@ -5,6 +5,7 @@ import com.software.modsen.authmicroservice.entities.keycloak.*
 import com.software.modsen.authmicroservice.exceptions.ExceptionMessage
 import com.software.modsen.authmicroservice.exceptions.UserIsAlreadyRegisteredException
 import com.software.modsen.authmicroservice.exceptions.RoleNotFoundException
+import com.software.modsen.authmicroservice.exceptions.UserNotFoundException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.stereotype.Service
@@ -93,6 +94,29 @@ class KeycloakService(private val keycloakClient: KeycloakClient) {
         )
     }
 
+    fun changePassword(username: String, newPassword: String): Unit {
+        val usersFromKeycloak: List<KeycloakUserDto> = keycloakClient.getUsersByUsername(keycloakRealm,
+            accessToken, username, null)
+
+        println("Before if")
+
+        if (!usersFromKeycloak.isEmpty()) {
+            val usersFromKeycloak: List<KeycloakUserDto> = keycloakClient.getUsersByUsername(keycloakRealm,
+                accessToken, username, null)
+
+            println("Into if")
+
+            keycloakClient.changeUserPassword(accessToken, keycloakRealm, usersFromKeycloak[0].id,
+                KeycloakPasswordUpdateDto(listOf(KeycloakCredential(value = newPassword, temporary = false))))
+
+            return
+        }
+
+        println("After if")
+
+        throw UserNotFoundException(ExceptionMessage().USER_NOT_FOUND)
+    }
+
     @Scheduled(fixedRate = 60000)
     private fun refreshAccessToken() {
         val keycloakToken = keycloakClient.getAdminToken(buildParametersForGettingAdminTokenQuery(keycloakClientIdAdmin,
@@ -116,6 +140,9 @@ class KeycloakService(private val keycloakClient: KeycloakClient) {
                                                         keycloakAdminUsername: String,
                                                          keycloakAdminPassword: String,
                                                          keycloakGrantType: String): Map<String, String> {
+        println("keycloakClientId: $keycloakClientId\nkeycloakClientSecret: $keycloakClientSecret\n" +
+                "keycloakAdminUsername: $keycloakAdminUsername\nkeycloakAdminPassword: $keycloakAdminPassword\n" +
+                "keycloakGrantType: $keycloakGrantType")
         return mapOf(
             "client_id" to keycloakClientId,
             "client_secret" to keycloakClientSecret,
