@@ -9,4 +9,5 @@ class ExceptionMessage {
     val VERIFICATION_CODE_HAS_EXPIRED_MESSAGE =
         "Verification code has expired. Please request a new verification code."
     val WRONG_VERIFICATION_CODE_MESSAGE = "Wrong verification code"
+    val USER_NOT_FOUND = "{\"error\": \"user not found.\"}"
 }

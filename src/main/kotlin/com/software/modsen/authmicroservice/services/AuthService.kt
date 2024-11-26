@@ -64,4 +64,9 @@ class AuthService(
         mailSenderService.isCodeVerificationPassed(userVerificationCode)
         keycloakService.confirmEmail(userEmail)
     }
+
+    fun changePassword(userAuthDetails: UserAuthDetails): Unit {
+        keycloakService.changePassword(userAuthDetails.username,
+            userAuthDetails.password)
+    }
 }

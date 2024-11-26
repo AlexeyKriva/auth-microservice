@@ -35,7 +35,7 @@ keycloak:
   realm: ${KEYCLOAK_REALM:cab-agg}
   client-id-admin: ${KEYCLOAK_CLIENT_ID_ADMIN:admin-cli}
   client-id-user: ${KEYCLOAK_CLIENT_ID_USER:cab-auth}
-  client-secret-user: ${KEYCLOAK_CLIENT_SECRET_USER:OFaEevU7IK8G6h7Xm8qMtinAnaL8Hmd2}
+  client-secret-user: ${KEYCLOAK_CLIENT_SECRET_USER:SsjMuaqQjAL7WTSncVBpjv5bexKvs4TB}
   admin-username: ${KC_BOOTSTRAP_ADMIN_USERNAME:admin}
   admin-password: ${KC_BOOTSTRAP_ADMIN_PASSWORD:admin}
   grant-type: ${KEYCLOAK_GRANT_TYPE:password}

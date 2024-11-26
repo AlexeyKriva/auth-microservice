@@ -62,4 +62,12 @@ interface KeycloakClient {
         @PathVariable("id") userId: String,
         @RequestBody emailConfirmation: EmailConfirmation
     ): ResponseEntity<Unit>
+
+    @PutMapping("/admin/realms/{keycloakRealm}/users/{id}", consumes = [MediaType.APPLICATION_JSON_VALUE])
+    fun changeUserPassword(
+        @RequestHeader("Authorization") authHeader: String,
+        @PathVariable("keycloakRealm") keycloakRealm: String,
+        @PathVariable("id") id: String,
+        @RequestBody keycloakPasswordUpdateDto: KeycloakPasswordUpdateDto
+    ): ResponseEntity<Unit>
 }

@@ -11,10 +11,7 @@ import com.software.modsen.authmicroservice.services.AuthService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping(value = ["/api/auth"], produces = ["application/json"])
@@ -64,5 +61,12 @@ class AuthController(private val authService: AuthService) {
             emailConfirmation.userVerificationCode)
 
         return ResponseEntity(HttpStatus.OK)
+    }
+
+    @PostMapping("/passwords")
+    fun changePassword(
+        @Valid @RequestBody userAuthDetails: UserAuthDetails
+    ): ResponseEntity<Unit> {
+        return ResponseEntity(authService.changePassword(userAuthDetails), HttpStatus.OK)
     }
 }
