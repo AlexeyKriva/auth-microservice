@@ -1,0 +1,44 @@
+spring:
+  application:
+    name:
+      auth-microservice
+
+  mail:
+    username: ${MAIL_USERNAME:test.modsen.software.newsletter@gmail.com}
+    password: ${MAIL_PASSWORD:uikz ilhl jnft fpoh}
+    host: smtp.gmail.com
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    port: 587
+
+  cloud:
+    openfeign:
+      client:
+        config:
+          keycloak-server:
+            url: ${KEYCLOAK_SERVER_URL:http://localhost:8080}
+          driver-microservice:
+            url: ${DRIVER_SERVER_URL:http://localhost:8082/api/drivers}
+          passenger-microservice:
+            url: ${PASSENGER_SERVER_URL:http://localhost:8081/api/passengers}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka}
+
+keycloak:
+  realm: ${KEYCLOAK_REALM:cab-agg}
+  client-id-admin: ${KEYCLOAK_CLIENT_ID_ADMIN:admin-cli}
+  client-id-user: ${KEYCLOAK_CLIENT_ID_USER:cab-auth}
+  client-secret-user: ${KEYCLOAK_CLIENT_SECRET_USER:OFaEevU7IK8G6h7Xm8qMtinAnaL8Hmd2}
+  admin-username: ${KC_BOOTSTRAP_ADMIN_USERNAME:admin}
+  admin-password: ${KC_BOOTSTRAP_ADMIN_PASSWORD:admin}
+  grant-type: ${KEYCLOAK_GRANT_TYPE:password}
+
+server:
+  port: 8085

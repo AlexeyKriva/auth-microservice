@@ -1,0 +1,3 @@
+package com.software.modsen.authmicroservice.exceptions
+
+class EmailVerificationCodeHasExpiredException(customMessage: String): RuntimeException(customMessage)
